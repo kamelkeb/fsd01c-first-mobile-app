@@ -7,6 +7,7 @@ import {
   Image,
   Button,
   TouchableOpacity,
+  TextInput,
 } from "react-native";
 import favicon from "./assets/favicon.png";
 import * as ImagePicker from "expo-image-picker";
@@ -14,6 +15,7 @@ import * as Sharing from "expo-sharing";
 
 export default function App() {
   const [selectedImage, setSelectedImage] = useState(null);
+  const [username, setUsername] = useState("");
   const pickImageHandler = async () => {
     let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
 
@@ -57,7 +59,6 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Image source={favicon} style={styles.smallImage}></Image>
       <TouchableOpacity onPress={pickImageHandler}>
         <Image
           source={{
@@ -68,9 +69,17 @@ export default function App() {
       </TouchableOpacity>
       <Text style={styles.centralText}>Salut les FSD01 :p</Text>
       <StatusBar style="auto" />
-      <Button title="Ok"></Button>
+      <Text>Username</Text>
+      <TextInput
+        style={{ border: "2px solid black" }}
+        onChangeText={setUsername}
+        value={username}
+        autoCorrect={false}
+        autoCapitalize="none"
+      ></TextInput>
+
       <TouchableOpacity
-        onPress={() => alert("Hello, tout le monde!")}
+        onPress={() => alert(`Hello ${username}`)}
         style={styles.miniButton}
       >
         <Text>Click moi!</Text>
